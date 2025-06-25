@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+    petmariadb-server:
+        image: mariadb:11.4.2
+        container_name: petmariadb-server
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_ROOT_PASSWORD: password
+        volumes:
+            - $HOME/docker/volumes/petmariadb:/var/lib/mysql
+    cloudbeaver:
+        image: dbeaver/cloudbeaver:25
+        container_name: cloudbeaver
+        ports:
+            - "8978:8978"
+        depends_on:
+            - petmariadb-server
